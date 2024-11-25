@@ -9,13 +9,18 @@ import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.databinding.ListItemAlbumBinding
 import com.example.t6ejercicio1.pojo.Album
 
-class AlbumAdapter(private var albumes: List<Album>):
+class AlbumAdapter(private var albumes: List<Album>, private val listener: AlbumListener):
     RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
 
         private lateinit var context:Context
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         val binding = ListItemAlbumBinding.bind(view)
+        fun setListener(album: Album){
+            binding.root.setOnClickListener {
+                listener.onClick(album)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,6 +34,7 @@ class AlbumAdapter(private var albumes: List<Album>):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val album = albumes.get(position)
         with(holder){
+            setListener(album)
             binding.tvNombreAlbum.text = album.getNombre()
             val artistaFecha = album.getArtista() + " - " + album.getFechaPublicacion()
             binding.tvArtistaFecha.text = artistaFecha
