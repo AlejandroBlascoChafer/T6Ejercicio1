@@ -59,10 +59,10 @@ class AlbumFragment : Fragment(), OnClickListener {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
+        fun newInstance(album: Album) =
             AlbumFragment().apply {
                 arguments = Bundle().apply {
-
+                    putSerializable("mAlbum", album)
                 }
             }
     }

@@ -27,19 +27,11 @@ class MainActivity : AppCompatActivity(), AlbumListener {
         }
 
 
-        if (savedInstanceState == null) {
-            // Cargar el AlbumFragment como fragmento inicial
-            val albumFragment = AlbumFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(binding.frgContenedor.id, albumFragment)
-                .commit()
-        } else {
-            val fragment = supportFragmentManager.findFragmentById(binding.frgContenedor.id)
-
-            if (fragment is AlbumFragment){
-                fragment.setAlbumListener(this)
-            }
-        }
+        val fragment = AlbumFragment()
+        fragment.setAlbumListener(this)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.frgContenedor, fragment)
+            .commit()
 
 
 
@@ -50,24 +42,16 @@ class MainActivity : AppCompatActivity(), AlbumListener {
     }
 
     override fun onAlbumSeleccionado(album: Album) {
-        println("Inicio de onAlbumSeleccionado para el álbum: ${album.getNombre()}")
+        val cancionFragment = CancionFragment()
 
-        // Crear el fragmento de canciones
-        val cancionFragment = CancionFragment.newInstance(album)
-        val mBundle = Bundle()
-        mBundle.putSerializable("mAlbum", album)
-        cancionFragment.arguments = mBundle
+        val bundle = Bundle()
+        bundle.putSerializable("mAlbum", album)
+        cancionFragment.arguments = bundle
 
-        println("Bundle creado con el álbum: ${album.getNombre()}")
-
-        // Intentar reemplazar el fragmento
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frgContenedor, cancionFragment)
         transaction.addToBackStack(null)
         transaction.commit()
-
-        println("Transacción de fragmentos realizada")
-
-
     }
+
 }

@@ -28,10 +28,8 @@ class CancionFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            album = it.getSerializable(ARG_ALBUM) as Album
+            album = it.getSerializable("mAlbum") as Album
             println("CancionFragment recibió el álbum: ${album.getNombre()}")
-        } ?: run {
-            println("Error: No se recibió ningún álbum en CancionFragment")
         }
     }
 
@@ -54,12 +52,11 @@ class CancionFragment : Fragment() {
 
     companion object {
         private const val ARG_ALBUM = "mAlbum"
-
         @JvmStatic
         fun newInstance(album: Album) =
             CancionFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_ALBUM, album)
+                    putSerializable("mAlbum", album)
                 }
             }
     }
