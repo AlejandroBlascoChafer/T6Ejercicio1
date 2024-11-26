@@ -1,6 +1,6 @@
 package com.example.t6ejercicio1.pojo
 
-class Album (private var nombre:String, private var artista:String, private var fechaPublicacion:String){
+class Album (private var nombre:String, private var artista:String, private var fechaPublicacion:String, val canciones: List<Cancion>){
 
     fun getNombre():String{
         return nombre
@@ -10,15 +10,5 @@ class Album (private var nombre:String, private var artista:String, private var 
     }
     fun getFechaPublicacion():String{
         return fechaPublicacion
-    }
-}
-
-class AlbumDatos{
-    companion object{
-        val ALBUMES = arrayListOf<Album>(
-            Album("LOOM", "Imagine Dragons", "2024"),
-            Album("LOOM", "Imagine Dragons", "2024"),
-            Album("LOOM", "Imagine Dragons", "2024"),
-        )
     }
 }

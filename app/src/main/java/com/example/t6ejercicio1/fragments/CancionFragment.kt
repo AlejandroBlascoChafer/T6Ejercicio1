@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t6ejercicio1.R
-import com.example.t6ejercicio1.adapters.AlbumAdapter
-import com.example.t6ejercicio1.databinding.ActivityMainBinding
-import com.example.t6ejercicio1.databinding.FragmentAlbumBinding
+import com.example.t6ejercicio1.adapters.CancionAdapter
 import com.example.t6ejercicio1.databinding.FragmentCancionBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,7 +22,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class CancionFragment : Fragment() {
     private lateinit var binding: FragmentCancionBinding
-    private lateinit var adapter: AlbumAdapter
+    private lateinit var adapter: CancionAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -42,8 +40,10 @@ class CancionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cancion, container, false)
+
+
+
+        return binding.root
     }
 
     companion object {

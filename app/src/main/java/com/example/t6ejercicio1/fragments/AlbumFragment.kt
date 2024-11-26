@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.adapters.AlbumAdapter
+import com.example.t6ejercicio1.adapters.AlbumListener
 import com.example.t6ejercicio1.databinding.ActivityMainBinding
 import com.example.t6ejercicio1.databinding.FragmentAlbumBinding
 import com.example.t6ejercicio1.pojo.Album
-import com.example.t6ejercicio1.pojo.AlbumDatos
+import com.example.t6ejercicio1.pojo.Repositorio
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,10 +25,12 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AlbumFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class AlbumFragment : Fragment() {
+class AlbumFragment : Fragment(), CancionListener {
     private lateinit var binding: FragmentAlbumBinding
     private lateinit var albumAdapter: AlbumAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
+
+    private lateinit var listener: AlbumListener
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +44,7 @@ class AlbumFragment : Fragment() {
     ): View? {
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
-        albumAdapter = AlbumAdapter(AlbumDatos.ALBUMES)
+        albumAdapter = AlbumAdapter(Repositorio.RepositorioMusica.albums, this)
         linearLayoutManager = LinearLayoutManager(context)
         binding.rvAlbum.apply{
             layoutManager = linearLayoutManager
@@ -49,6 +52,10 @@ class AlbumFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onCancionSeleccionada(a: Album) {
+        TODO("Not yet implemented")
     }
 
     companion object {
@@ -70,4 +77,6 @@ class AlbumFragment : Fragment() {
                 }
             }
     }
+
+
 }

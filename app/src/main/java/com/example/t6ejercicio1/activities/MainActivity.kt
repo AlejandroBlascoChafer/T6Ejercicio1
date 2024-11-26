@@ -11,6 +11,8 @@ import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.adapters.AlbumAdapter
 import com.example.t6ejercicio1.databinding.ActivityMainBinding
 import com.example.t6ejercicio1.fragments.AlbumFragment
+import com.example.t6ejercicio1.fragments.CancionFragment
+import com.example.t6ejercicio1.pojo.Album
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -26,14 +28,21 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        loadFragment(AlbumFragment())
+
 
     }
 
-    private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frgContenedor, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+    private fun loadFragment(album: Album) {
+
+            val fragment = CancionFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("album", album)
+            fragment.arguments = bundle
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null) // Añade a la pila de fragmentos para poder navegar atrás
+                .commit()
+
     }
 }
