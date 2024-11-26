@@ -5,44 +5,53 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t6ejercicio1.R
-import com.example.t6ejercicio1.adapters.AlbumAdapter
 import com.example.t6ejercicio1.databinding.ActivityMainBinding
 import com.example.t6ejercicio1.fragments.AlbumFragment
+import com.example.t6ejercicio1.fragments.AlbumListener
 import com.example.t6ejercicio1.fragments.CancionFragment
 import com.example.t6ejercicio1.pojo.Album
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AlbumListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: AlbumAdapter
-    private lateinit var linearLayoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
+        val fragment = supportFragmentManager.findFragmentById(binding.frgContenedor.id) as AlbumFragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frgContenedor, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+        fragment.setAlbumListener(this)
+
+
+
+
 
     }
 
-    private fun loadFragment(album: Album) {
+    override fun onAlbumSeleccionado(album: Album) {
+        val fragment = supportFragmentManager.findFragmentById(binding.frgContenedor.id) as AlbumFragment
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.frgContenedor, CancionFragment())
+            transaction.addToBackStack(null)
+            val mBundle = Bundle()
+            mBundle.putSerializable("mAlbum", album)
+            fragment.arguments = mBundle
 
-            val fragment = CancionFragment()
-            val bundle = Bundle()
-            bundle.putSerializable("album", album)
-            fragment.arguments = bundle
 
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null) // Añade a la pila de fragmentos para poder navegar atrás
-                .commit()
+
+            transaction.commit()
+
 
     }
 }

@@ -1,6 +1,9 @@
 package com.example.t6ejercicio1.pojo
 
-class Album (private var nombre:String, private var artista:String, private var fechaPublicacion:String, val canciones: List<Cancion>){
+import java.io.Serializable
+
+class Album (private var nombre:String, private var artista:String, private var fechaPublicacion:String, val canciones: List<Cancion>) :
+    Serializable {
 
     fun getNombre():String{
         return nombre
