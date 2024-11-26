@@ -68,7 +68,8 @@ class AlbumFragment : Fragment(), OnClickListener {
     }
 
     override fun onClick(album: Album) {
-        if (listener != null){
+        println("Clic en el álbum dentro del fragmento: ${album.getNombre()}")
+        if (::listener.isInitialized){
             listener.onAlbumSeleccionado(album)
         }
     }

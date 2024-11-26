@@ -26,12 +26,22 @@ class MainActivity : AppCompatActivity(), AlbumListener {
             insets
         }
 
-        val fragment = supportFragmentManager.findFragmentById(binding.frgContenedor.id) as AlbumFragment
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.frgContenedor, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-        fragment.setAlbumListener(this)
+
+        if (savedInstanceState == null) {
+            // Cargar el AlbumFragment como fragmento inicial
+            val albumFragment = AlbumFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(binding.frgContenedor.id, albumFragment)
+                .commit()
+        } else {
+            val fragment = supportFragmentManager.findFragmentById(binding.frgContenedor.id)
+
+            if (fragment is AlbumFragment){
+                fragment.setAlbumListener(this)
+            }
+        }
+
+
 
 
 
@@ -40,17 +50,23 @@ class MainActivity : AppCompatActivity(), AlbumListener {
     }
 
     override fun onAlbumSeleccionado(album: Album) {
-        val fragment = supportFragmentManager.findFragmentById(binding.frgContenedor.id) as AlbumFragment
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frgContenedor, CancionFragment())
-            transaction.addToBackStack(null)
-            val mBundle = Bundle()
-            mBundle.putSerializable("mAlbum", album)
-            fragment.arguments = mBundle
+        println("Inicio de onAlbumSeleccionado para el álbum: ${album.getNombre()}")
 
+        // Crear el fragmento de canciones
+        val cancionFragment = CancionFragment.newInstance(album)
+        val mBundle = Bundle()
+        mBundle.putSerializable("mAlbum", album)
+        cancionFragment.arguments = mBundle
 
+        println("Bundle creado con el álbum: ${album.getNombre()}")
 
-            transaction.commit()
+        // Intentar reemplazar el fragmento
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frgContenedor, cancionFragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+
+        println("Transacción de fragmentos realizada")
 
 
     }
