@@ -6,4 +6,6 @@
     <string name="cancion_icon">Cancion Icon</string>
     <string name="dialogo_linea_1"> Diálogo Línea 1 </string>
     <string name="dialogo_linea_2"> Diálogo Línea 2 </string>
+    <string name="seleccione_un_album">Seleccione un album:</string>
+    <string name="seleccione_una_cancion">Seleccione una canción:</string>
 </resources>

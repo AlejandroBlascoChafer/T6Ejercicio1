@@ -18,7 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private var ARG_ALBUM = "album"
 
-class CancionFragment : Fragment(), OnClickCancion {
+class CancionFragment : Fragment() {
     private lateinit var binding: FragmentCancionBinding
     private lateinit var cancionAdapter: CancionAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
@@ -59,8 +59,4 @@ class CancionFragment : Fragment(), OnClickCancion {
             }
     }
 
-    override fun onClickCancion(cancion: Cancion) {
-
-
-    }
 }

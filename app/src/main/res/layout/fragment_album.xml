@@ -7,6 +7,10 @@
     android:orientation="vertical"
     android:id="@+id/main">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/seleccione_un_album"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAlbum"
