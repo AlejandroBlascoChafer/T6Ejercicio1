@@ -55,18 +55,6 @@ class AlbumFragment : Fragment(), OnClickListener {
         return binding.root
     }
 
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(album: Album) =
-            AlbumFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable("mAlbum", album)
-                }
-            }
-    }
-
     override fun onClick(album: Album) {
         println("Clic en el álbum dentro del fragmento: ${album.getNombre()}")
         if (::listener.isInitialized){

@@ -42,11 +42,8 @@ class MainActivity : AppCompatActivity(), AlbumListener {
     }
 
     override fun onAlbumSeleccionado(album: Album) {
-        val cancionFragment = CancionFragment()
+        val cancionFragment = CancionFragment.newInstance(album)
 
-        val bundle = Bundle()
-        bundle.putSerializable("mAlbum", album)
-        cancionFragment.arguments = bundle
 
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.frgContenedor, cancionFragment)

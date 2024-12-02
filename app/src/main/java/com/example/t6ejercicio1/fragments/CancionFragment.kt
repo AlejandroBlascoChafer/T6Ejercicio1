@@ -1,5 +1,6 @@
 package com.example.t6ejercicio1.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,20 +11,19 @@ import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.adapters.CancionAdapter
 import com.example.t6ejercicio1.databinding.FragmentCancionBinding
 import com.example.t6ejercicio1.pojo.Album
-import com.example.t6ejercicio1.pojo.Repositorio
+import com.example.t6ejercicio1.pojo.Cancion
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private var ARG_ALBUM = "album"
 
-class CancionFragment : Fragment() {
+class CancionFragment : Fragment(), OnClickCancion {
     private lateinit var binding: FragmentCancionBinding
     private lateinit var cancionAdapter: CancionAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var album: Album
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,6 @@ class CancionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
         binding = FragmentCancionBinding.inflate(inflater, container, false)
         cancionAdapter = CancionAdapter(album.canciones)
         linearLayoutManager = LinearLayoutManager(context)
@@ -51,7 +50,6 @@ class CancionFragment : Fragment() {
     }
 
     companion object {
-        private const val ARG_ALBUM = "mAlbum"
         @JvmStatic
         fun newInstance(album: Album) =
             CancionFragment().apply {
@@ -59,5 +57,10 @@ class CancionFragment : Fragment() {
                     putSerializable("mAlbum", album)
                 }
             }
+    }
+
+    override fun onClickCancion(cancion: Cancion) {
+
+
     }
 }

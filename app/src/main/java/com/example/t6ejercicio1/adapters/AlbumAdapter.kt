@@ -9,7 +9,7 @@ import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.databinding.ListItemAlbumBinding
 import com.example.t6ejercicio1.pojo.Album
 
-class AlbumAdapter(private var albumes: List<Album>, private val listener: OnClickListener):
+class  AlbumAdapter(private var albumes: List<Album>, private val listener: OnClickListener):
     RecyclerView.Adapter<AlbumAdapter.ViewHolder>() {
 
         private lateinit var context:Context
