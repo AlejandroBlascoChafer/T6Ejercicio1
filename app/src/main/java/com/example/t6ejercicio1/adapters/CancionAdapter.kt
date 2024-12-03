@@ -8,14 +8,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.databinding.ListItemCancionBinding
+import com.example.t6ejercicio1.fragments.OnClickCancion
+import com.example.t6ejercicio1.pojo.Album
 import com.example.t6ejercicio1.pojo.Cancion
 
-class CancionAdapter(private val canciones: List<Cancion>) : RecyclerView.Adapter<CancionAdapter.ViewHolder>() {
+class CancionAdapter(private val canciones: List<Cancion>, private val listener: OnClickCancion) : RecyclerView.Adapter<CancionAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
     inner class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         val binding = ListItemCancionBinding.bind(view)
+        fun setListener(cancion: Cancion){
+            binding.root.setOnClickListener {
+               listener.onClickCancion(cancion)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +34,7 @@ class CancionAdapter(private val canciones: List<Cancion>) : RecyclerView.Adapte
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cancion = canciones[position]
         with(holder){
+            setListener(cancion)
             val nombre:String = cancion.getNumero() + ". " + cancion.getNombre()
             binding.tvNombreCancion.text = nombre
             binding.tvDuracion.text = cancion.getDuracion()

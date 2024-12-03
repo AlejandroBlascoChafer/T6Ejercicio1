@@ -1,7 +1,8 @@
 package com.example.t6ejercicio1.fragments
 
-import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,15 +15,15 @@ import com.example.t6ejercicio1.pojo.Album
 import com.example.t6ejercicio1.pojo.Cancion
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private var ARG_ALBUM = "album"
 
-class CancionFragment : Fragment() {
+class CancionFragment : Fragment(), OnClickCancion {
     private lateinit var binding: FragmentCancionBinding
     private lateinit var cancionAdapter: CancionAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var album: Album
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,7 @@ class CancionFragment : Fragment() {
     ): View? {
 
         binding = FragmentCancionBinding.inflate(inflater, container, false)
-        cancionAdapter = CancionAdapter(album.canciones)
+        cancionAdapter = CancionAdapter(album.canciones, this)
         linearLayoutManager = LinearLayoutManager(context)
         binding.rvCancion.apply {
             layoutManager = linearLayoutManager
@@ -58,5 +59,25 @@ class CancionFragment : Fragment() {
                 }
             }
     }
+
+    override fun onClickCancion(cancion: Cancion) {
+        Log.i("frag", "Has clicado en una canción")
+        val dialogView = layoutInflater.inflate(R.layout.dialog_personal, null)
+        val titulo = "Título: ${cancion.getNombre()}"
+        val duracion = "Duración: ${cancion.getDuracion()}"
+        val numero = "Numero: ${cancion.getNumero()}"
+
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Información")
+            .setView(dialogView)
+            .setPositiveButton("Aceptar") { dialog, _ ->
+                dialog.cancel()
+            }
+            .setCancelable(false)//No podrá desaparecer el diálogo por ningún motivo
+            .show()
+    }
+
+
 
 }

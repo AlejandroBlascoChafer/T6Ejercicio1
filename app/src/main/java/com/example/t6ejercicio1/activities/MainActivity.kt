@@ -1,6 +1,5 @@
 package com.example.t6ejercicio1.activities
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -12,12 +11,9 @@ import com.example.t6ejercicio1.databinding.ActivityMainBinding
 import com.example.t6ejercicio1.fragments.AlbumFragment
 import com.example.t6ejercicio1.fragments.AlbumListener
 import com.example.t6ejercicio1.fragments.CancionFragment
-import com.example.t6ejercicio1.fragments.OnClickCancion
 import com.example.t6ejercicio1.pojo.Album
-import com.example.t6ejercicio1.pojo.Cancion
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-class MainActivity : AppCompatActivity(), AlbumListener, OnClickCancion {
+class MainActivity : AppCompatActivity(), AlbumListener {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +48,8 @@ class MainActivity : AppCompatActivity(), AlbumListener, OnClickCancion {
 
         if (hayCancion){
             val cancionFragment = CancionFragment.newInstance(album)
+
+
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frgContenedorCancion, cancionFragment)
             transaction.addToBackStack(null)
@@ -60,6 +58,7 @@ class MainActivity : AppCompatActivity(), AlbumListener, OnClickCancion {
         } else {
             val cancionFragment = CancionFragment.newInstance(album)
 
+
             val transaction = supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frgContenedor, cancionFragment)
             transaction.addToBackStack(null)
@@ -67,18 +66,5 @@ class MainActivity : AppCompatActivity(), AlbumListener, OnClickCancion {
         }
     }
 
-    override fun onClickCancion(cancion: Cancion) {
-            val dialogView = layoutInflater.inflate(R.layout.dialog_personal, null)
-
-            MaterialAlertDialogBuilder(this)
-            .setTitle("Esto es un diálogo personalizado")
-            .setView(dialogView)
-            .setPositiveButton("Aceptar", DialogInterface.OnClickListener { dialog, i ->
-                dialog.cancel()
-            })
-            .setCancelable(false)//No podrá desaparecer el diálogo por ningún motivo
-            .show()
-
-    }
 
 }
