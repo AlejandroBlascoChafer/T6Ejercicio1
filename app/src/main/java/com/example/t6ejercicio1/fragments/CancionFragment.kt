@@ -1,6 +1,5 @@
 package com.example.t6ejercicio1.fragments
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.adapters.CancionAdapter
+import com.example.t6ejercicio1.databinding.DialogPersonalBinding
 import com.example.t6ejercicio1.databinding.FragmentCancionBinding
 import com.example.t6ejercicio1.pojo.Album
 import com.example.t6ejercicio1.pojo.Cancion
@@ -20,6 +20,7 @@ private var ARG_ALBUM = "album"
 
 class CancionFragment : Fragment(), OnClickCancion {
     private lateinit var binding: FragmentCancionBinding
+    private lateinit var dialogPersonalBinding: DialogPersonalBinding
     private lateinit var cancionAdapter: CancionAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var album: Album
@@ -62,17 +63,21 @@ class CancionFragment : Fragment(), OnClickCancion {
 
     override fun onClickCancion(cancion: Cancion) {
         Log.i("frag", "Has clicado en una canción")
-        val dialogView = layoutInflater.inflate(R.layout.dialog_personal, null)
+        dialogPersonalBinding = DialogPersonalBinding.inflate(layoutInflater)
         val titulo = "Título: ${cancion.getNombre()}"
         val duracion = "Duración: ${cancion.getDuracion()}"
         val numero = "Numero: ${cancion.getNumero()}"
+        dialogPersonalBinding.tvTitulo.text = titulo
+        dialogPersonalBinding.tvDuracion.text = duracion
+        dialogPersonalBinding.tvNumero.text = numero
+
 
 
 
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Información")
-            .setView(dialogView)
+            .setView(dialogPersonalBinding.root)
             .setPositiveButton("Aceptar") { dialog, _ ->
                 dialog.cancel()
             }

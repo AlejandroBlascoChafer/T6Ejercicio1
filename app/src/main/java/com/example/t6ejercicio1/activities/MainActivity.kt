@@ -10,6 +10,7 @@ import com.example.t6ejercicio1.R
 import com.example.t6ejercicio1.databinding.ActivityMainBinding
 import com.example.t6ejercicio1.fragments.AlbumFragment
 import com.example.t6ejercicio1.fragments.AlbumListener
+import com.example.t6ejercicio1.fragments.BlankFragment
 import com.example.t6ejercicio1.fragments.CancionFragment
 import com.example.t6ejercicio1.pojo.Album
 
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity(), AlbumListener {
 
         if (hayCancion){
             val cancionFragment = CancionFragment.newInstance(album)
+            val blankFragment = BlankFragment.newInstance("hola1", "hola2")
 
 
             val transaction = supportFragmentManager.beginTransaction()
